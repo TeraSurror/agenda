@@ -18,6 +18,8 @@ pub fn add_task(title: String, priority: Priority, due: Option<String>) -> anyho
     tasks.push(Task::new(id, title, priority, due_date));
     save_tasks(&tasks)?;
 
+    println!("Added task with id {id} successfully.");
+
     Ok(())
 }
 
@@ -26,8 +28,7 @@ pub fn list_tasks(filter: Option<String>) -> anyhow::Result<()> {
     let filtered_tasks: Vec<&Task> = tasks
         .iter()
         .filter(|t| match &filter {
-            Some(f) if f == "created" => t.status == Status::Created,
-            Some(f) if f == "in progress" => t.status == Status::InProgress,
+            Some(f) if f == "pending" => t.status == Status::Pending,
             Some(f) if f == "done" => t.status == Status::Done,
             _ => true,
         })
@@ -45,6 +46,20 @@ pub fn list_tasks(filter: Option<String>) -> anyhow::Result<()> {
         };
         println!("{}: {} {}", task.id, task.title, status);
     });
+
+    Ok(())
+}
+
+pub fn complete_task(id: u32) -> anyhow::Result<()> {
+    let mut tasks = load_tasks()?;
+    let task = tasks
+        .iter_mut()
+        .find(|t| t.id == id)
+        .ok_or(TaskError::NotFound(id))?;
+
+    task.status = Status::Done;
+    save_tasks(&tasks)?;
+    println!("Complted task: {id}");
 
     Ok(())
 }
