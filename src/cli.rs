@@ -11,13 +11,17 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Command {
+    /// Add a new task
     Add {
+        /// Task Description
         #[arg(short, long)]
         title: String,
 
+        /// Priority Level
         #[arg(short, long, default_value = "medium")]
         priority: Priority,
 
+        /// Task due date
         #[arg(short, long)]
         due: Option<String>,
     },

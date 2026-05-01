@@ -1,25 +1,22 @@
 mod cli;
+mod error;
 mod model;
 mod store;
 
 use crate::{
     cli::{Cli, Command},
-    store::TaskStore,
+    store::add_task,
 };
 use clap::Parser;
 
-fn main() {
+fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
-    let mut task_store = TaskStore::new();
 
     match cli.command {
         Command::Add {
             title,
             priority,
             due,
-        } => {
-            task_store.add_task(title, priority, due);
-            println!("{task_store:#?}");
-        }
+        } => add_task(title, priority, due),
     }
 }

@@ -1,20 +1,21 @@
 use chrono::{DateTime, NaiveDate, Utc};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, clap::ValueEnum)]
+#[derive(Debug, Clone, Serialize, Deserialize, clap::ValueEnum)]
 pub enum Priority {
     Low,
     Medium,
     High,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Status {
     Created,
     InProgress,
     Done,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Task {
     pub id: u32,
     pub title: String,
