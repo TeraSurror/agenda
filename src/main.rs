@@ -5,7 +5,7 @@ mod store;
 
 use crate::{
     cli::{Cli, Command},
-    store::{add_task, list_tasks},
+    store::{add_task, complete_task, list_tasks},
 };
 use clap::Parser;
 
@@ -19,5 +19,6 @@ fn main() -> anyhow::Result<()> {
             due,
         } => add_task(title, priority, due),
         Command::List { filter } => list_tasks(filter),
+        Command::Complete { id } => complete_task(id),
     }
 }

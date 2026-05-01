@@ -10,8 +10,7 @@ pub enum Priority {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Status {
-    Created,
-    InProgress,
+    Pending,
     Done,
 }
 
@@ -31,7 +30,7 @@ impl Task {
             id,
             title,
             priority,
-            status: Status::Created,
+            status: Status::Pending,
             due,
             created_at: Utc::now(),
         }

@@ -31,4 +31,10 @@ pub enum Command {
         #[arg(short, long)]
         filter: Option<String>,
     },
+
+    /// Mark task as complete
+    Complete {
+        #[arg(short, long)]
+        id: u32,
+    },
 }

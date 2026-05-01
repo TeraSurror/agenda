@@ -13,4 +13,7 @@ pub enum TaskError {
 
     #[error("Json error: {0}")]
     Json(#[from] serde_json::Error),
+
+    #[error("Task with id {0} not found")]
+    NotFound(u32),
 }
