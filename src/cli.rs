@@ -37,4 +37,10 @@ pub enum Command {
         #[arg(short, long)]
         id: u32,
     },
+
+    /// Delete task
+    Delete {
+        #[arg(short, long)]
+        id: u32,
+    },
 }

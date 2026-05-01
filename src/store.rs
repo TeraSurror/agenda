@@ -64,6 +64,21 @@ pub fn complete_task(id: u32) -> anyhow::Result<()> {
     Ok(())
 }
 
+pub fn delete_task(id: u32) -> anyhow::Result<()> {
+    let mut tasks = load_tasks()?;
+    let index = tasks
+        .iter()
+        .position(|t| t.id == id)
+        .ok_or(TaskError::NotFound(id))?;
+
+    let removed = tasks.remove(index);
+    save_tasks(&tasks)?;
+
+    println!("Deleted task {id}: {}", removed.title);
+
+    Ok(())
+}
+
 fn data_path() -> Result<PathBuf, TaskError> {
     let dir = dirs::data_dir()
         .ok_or(TaskError::NoDataDir)?
