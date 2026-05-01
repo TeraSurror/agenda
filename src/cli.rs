@@ -25,4 +25,10 @@ pub enum Command {
         #[arg(short, long)]
         due: Option<String>,
     },
+
+    /// List all the task (with an optional filter)
+    List {
+        #[arg(short, long)]
+        filter: Option<String>,
+    },
 }
