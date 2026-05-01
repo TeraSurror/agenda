@@ -38,12 +38,12 @@ pub fn list_tasks(filter: Option<String>) -> anyhow::Result<()> {
         return Ok(());
     }
 
-    filtered_tasks.iter().enumerate().for_each(|(index, task)| {
+    filtered_tasks.iter().for_each(|task| {
         let status = match task.status {
             Status::Done => "[✓]",
             _ => "[ ]",
         };
-        println!("{}: {} {}", index + 1, task.title, status);
+        println!("{}: {} {}", task.id, task.title, status);
     });
 
     Ok(())
